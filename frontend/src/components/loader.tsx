@@ -79,6 +79,8 @@ export default function Loader() {
 
           {/* Sparkle effect on the path */}
           <motion.circle
+            cx="2"
+            cy="6"
             r="0.5"
             fill="white"
             initial={{ opacity: 0 }}

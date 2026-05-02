@@ -5,7 +5,11 @@ const cors = require('cors');
 const downloadRoutes = require('./routes/downloadRoutes');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ['https://stream-grab-nu.vercel.app', 'http://localhost:5173'],
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes
