@@ -128,6 +128,7 @@ export default function ProgressView({ taskId, info, onReset }: ProgressViewProp
                 <motion.circle
                   cx="104"
                   cy="104"
+                  initial={{ cx: 104, cy: 104, strokeDashoffset: 578.05 }}
                   r="92"
                   stroke="url(#progress-gradient)"
                   strokeWidth="8"
