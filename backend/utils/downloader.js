@@ -9,7 +9,14 @@ class Downloader {
 
   async getInfo(url) {
     return new Promise((resolve, reject) => {
-      const ytDlp = spawn('yt-dlp', ['--dump-json', '--no-warnings', url]);
+      const args = [
+        '--dump-json',
+        '--no-warnings',
+        '--add-header', 'Accept-Language:en-US,en;q=0.9',
+        '--user-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        url
+      ];
+      const ytDlp = spawn('yt-dlp', args);
       
       let stdout = '';
       let stderr = '';
@@ -111,7 +118,9 @@ class Downloader {
         '--embed-chapters',
         '--embed-thumbnail', 
         '--convert-thumbnails', 'jpg',
-        '--embed-metadata'
+        '--embed-metadata',
+        '--add-header', 'Accept-Language:en-US,en;q=0.9',
+        '--user-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
       ];
     }
 
