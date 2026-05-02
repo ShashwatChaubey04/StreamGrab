@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Save, ArrowLeft, Video } from 'lucide-react';
+import { Save } from 'lucide-react';
 import type { VideoInfo } from '../App';
 
 interface ProgressViewProps {
@@ -12,9 +12,10 @@ interface ProgressViewProps {
 export default function ProgressView({ taskId, info, onReset }: ProgressViewProps) {
   const [status, setStatus] = useState<string>('initializing');
   const [progress, setProgress] = useState<number>(0);
+  // @ts-ignore
   const [message, setMessage] = useState<string>('');
 
-  const isAudio = info.formats?.some(f => f.acodec !== 'none' && f.vcodec === 'none') || false;
+  const isAudio = (info as any).formats?.some((f: any) => f.acodec !== 'none' && f.vcodec === 'none') || false;
 
   const API_BASE = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
 

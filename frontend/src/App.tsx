@@ -5,7 +5,7 @@ import ProgressView from './components/ProgressView';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Loader from './components/loader';
-import { Video, AlertCircle } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 
 export type VideoInfo = {
   id: string;

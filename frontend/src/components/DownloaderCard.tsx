@@ -11,7 +11,7 @@ interface DownloaderCardProps {
 export default function DownloaderCard({ info, onStart, onBack }: DownloaderCardProps) {
   const [viewMode, setViewMode] = useState<'transcript' | 'subtitles'>('subtitles');
   const [quality, setQuality] = useState('1080p');
-  const [isPlaylist, setIsPlaylist] = useState(info.is_playlist || false);
+  const [isPlaylist] = useState(info.is_playlist || false);
   const [downloadMode, setDownloadMode] = useState<'video' | 'audio'>('video');
   const [copied, setCopied] = useState(false);
 
