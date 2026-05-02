@@ -7,7 +7,6 @@ class Downloader {
     this.tasks = new Map();
   }
 
-  // Get info about a video or playlist
   async getInfo(url) {
     return new Promise((resolve, reject) => {
       const ytDlp = spawn('yt-dlp', ['--dump-json', '--no-warnings', url]);

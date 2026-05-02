@@ -4,11 +4,12 @@ const { v4: uuidv4 } = require('uuid');
 const archiver = require('archiver');
 const downloader = require('../utils/downloader');
 
-const DOWNLOADS_DIR = path.join(__dirname, '..', 'downloads');
+const os = require('os');
+const DOWNLOADS_DIR = path.join(os.tmpdir(), 'streamgrab-downloads');
 
 // Ensure downloads directory exists
 if (!fs.existsSync(DOWNLOADS_DIR)) {
-  fs.mkdirSync(DOWNLOADS_DIR);
+  fs.mkdirSync(DOWNLOADS_DIR, { recursive: true });
 }
 
 exports.getInfo = async (req, res) => {
@@ -94,6 +95,15 @@ exports.downloadFile = (req, res) => {
   } else {
     const file = files[0];
     const filePath = path.join(taskDir, file);
-    res.download(filePath, file);
+    res.download(filePath, file, (err) => {
+      if (!err) {
+        // Cleanup after successful download
+        try {
+          fs.rmSync(taskDir, { recursive: true, force: true });
+        } catch (cleanupErr) {
+          console.error('Cleanup error:', cleanupErr);
+        }
+      }
+    });
   }
 };

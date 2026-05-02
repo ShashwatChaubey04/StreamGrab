@@ -15,16 +15,16 @@ export default function Hero({ url, setUrl, handleFetch, isLoading }: HeroProps)
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="flex items-center justify-center mb-6 relative"
+        className="flex flex-col items-center justify-center mb-6 relative"
       >
         <motion.div 
-          animate={{ y: [0, -15, 0], rotate: [0, -10, 10, 0] }}
+          animate={{ y: [0, -10, 0], rotate: [0, -5, 5, 0] }}
           transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-          className="absolute -left-16 md:-left-24 opacity-90"
+          className="mb-4 md:absolute md:-left-24 md:mb-0 opacity-90"
         >
-          <Video className="w-16 h-16 md:w-20 md:h-20 text-brand-orange drop-shadow-[0_0_15px_rgba(255,122,0,0.5)]" fill="currentColor" />
+          <Video className="w-12 h-12 md:w-20 md:h-20 text-brand-orange drop-shadow-[0_0_15px_rgba(255,122,0,0.5)]" fill="currentColor" />
         </motion.div>
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">
+        <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight leading-tight">
           Next-Gen <br className="md:hidden" />
           <span className="text-gradient">YouTube Video</span><br className="hidden md:block" /> Downloader
         </h1>
@@ -48,12 +48,12 @@ export default function Hero({ url, setUrl, handleFetch, isLoading }: HeroProps)
         className="mt-14 w-full max-w-3xl relative group z-10"
       >
         <div className="absolute inset-0 bg-brand-orange/30 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition duration-700"></div>
-        <div className="relative flex items-center bg-white rounded-full p-2 pl-6 border-4 border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.2)] overflow-hidden transition-all">
-          <Search className="w-7 h-7 text-gray-400 shrink-0" />
+        <div className="relative flex items-center bg-white rounded-full p-1.5 md:p-2 pl-4 md:pl-6 border-2 md:border-4 border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.2)] overflow-hidden transition-all">
+          <Search className="w-5 h-5 md:w-7 md:h-7 text-gray-400 shrink-0" />
           <input 
             type="text" 
-            placeholder="Paste YouTube Video URL here..."
-            className="w-full bg-transparent border-none outline-none text-black px-4 py-3 text-lg placeholder:text-gray-400 font-medium"
+            placeholder="Paste YouTube Link..."
+            className="w-full bg-transparent border-none outline-none text-black px-3 md:px-4 py-2 md:py-3 text-sm md:text-lg placeholder:text-gray-400 font-medium"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             disabled={isLoading}
@@ -63,10 +63,10 @@ export default function Hero({ url, setUrl, handleFetch, isLoading }: HeroProps)
             whileTap={{ scale: 0.95 }}
             type="submit"
             disabled={isLoading || !url.trim()}
-            className="bg-gradient-brand text-white px-8 py-3 rounded-full font-bold text-base flex items-center shadow-lg shadow-brand-orange/30 disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+            className="bg-gradient-brand text-white px-5 md:px-8 py-2 md:py-3 rounded-full font-bold text-sm md:text-base flex items-center shadow-lg shadow-brand-orange/30 disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
           >
-            {isLoading ? 'Scanning...' : 'Start'} 
-            {!isLoading && <ArrowRight className="w-6 h-6 ml-2" />}
+            {isLoading ? 'Wait...' : 'Start'} 
+            {!isLoading && <ArrowRight className="w-5 h-5 md:w-6 md:h-6 ml-2" />}
           </motion.button>
         </div>
       </motion.form>

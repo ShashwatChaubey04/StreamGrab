@@ -48,6 +48,8 @@ function App() {
     }
   }, [url, status, videoInfo, taskId]);
 
+  const API_BASE = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+
   const handleFetch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!url.trim()) return;
@@ -55,7 +57,7 @@ function App() {
     setStatus('fetching');
     setErrorMsg('');
     try {
-      const res = await fetch(`http://localhost:5000/api/info?url=${encodeURIComponent(url)}`);
+      const res = await fetch(`${API_BASE}/api/info?url=${encodeURIComponent(url)}`);
       if (!res.ok) {
         throw new Error('Failed to fetch video information.');
       }
@@ -84,7 +86,7 @@ function App() {
     setStatus('downloading');
     setErrorMsg('');
     try {
-      const res = await fetch('http://localhost:5000/api/download', {
+      const res = await fetch(`${API_BASE}/api/download`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url, quality, isPlaylist, mode })

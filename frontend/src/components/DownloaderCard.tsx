@@ -40,10 +40,10 @@ export default function DownloaderCard({ info, onStart, onBack }: DownloaderCard
     <div className="glass-card rounded-[2rem] md:rounded-[3rem] overflow-hidden flex flex-col md:flex-row w-full min-h-[auto] md:min-h-[850px] shadow-[0_0_80px_rgba(0,0,0,0.6)] border border-white/10 relative">
       <button 
         onClick={onBack}
-        className="absolute top-4 left-4 md:top-8 md:left-8 z-50 flex items-center justify-center w-12 h-12 md:w-auto md:h-auto md:px-6 md:py-3 rounded-2xl bg-black/80 backdrop-blur-3xl text-white hover:text-brand-orange transition-all border border-white/20 shadow-[0_10px_40px_rgba(0,0,0,0.8)] group active:scale-90"
+        className="absolute top-4 left-4 md:top-6 md:left-6 z-50 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-black/80 backdrop-blur-3xl text-white hover:text-brand-orange transition-all border border-white/20 shadow-[0_10px_40px_rgba(0,0,0,0.8)] group active:scale-90"
         title="Go Back"
       >
-        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+        <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-1 transition-transform" />
       </button>
 
       {/* Left Column: Media & Metadata */}
@@ -62,19 +62,19 @@ export default function DownloaderCard({ info, onStart, onBack }: DownloaderCard
 
         <div className="space-y-12 flex-grow">
           <div>
-            <div className="flex items-center justify-between gap-4 mb-8 relative z-20">
-              <div className="flex bg-black/40 p-1 rounded-2xl border border-white/5 shadow-inner w-full md:w-fit overflow-hidden">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-8 relative z-20">
+              <div className="flex bg-black/40 p-1 rounded-2xl border border-white/5 shadow-inner w-full sm:w-fit overflow-hidden">
                 <button 
                   type="button"
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); setViewMode('transcript'); }}
-                  className={`flex-1 md:flex-none flex items-center justify-center px-4 md:px-6 py-3 rounded-xl text-[10px] md:text-xs font-black transition-all cursor-pointer ${viewMode === 'transcript' ? 'bg-white/10 text-white shadow-lg' : 'text-gray-500 hover:text-gray-300'}`}
+                  className={`flex-1 sm:flex-none flex items-center justify-center px-6 py-3 rounded-xl text-[10px] md:text-xs font-black transition-all cursor-pointer ${viewMode === 'transcript' ? 'bg-white/10 text-white shadow-lg' : 'text-gray-500 hover:text-gray-300'}`}
                 >
                   <FileText className="w-4 h-4 mr-2" /> TRANSCRIPT
                 </button>
                 <button 
                   type="button"
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); setViewMode('subtitles'); }}
-                  className={`flex-1 md:flex-none flex items-center justify-center px-4 md:px-6 py-3 rounded-xl text-[10px] md:text-xs font-black transition-all cursor-pointer ${viewMode === 'subtitles' ? 'bg-white/10 text-white shadow-lg' : 'text-gray-500 hover:text-gray-300'}`}
+                  className={`flex-1 sm:flex-none flex items-center justify-center px-6 py-3 rounded-xl text-[10px] md:text-xs font-black transition-all cursor-pointer ${viewMode === 'subtitles' ? 'bg-white/10 text-white shadow-lg' : 'text-gray-500 hover:text-gray-300'}`}
                 >
                   <Globe className="w-4 h-4 mr-2" /> SUBTITLES
                 </button>
@@ -82,35 +82,44 @@ export default function DownloaderCard({ info, onStart, onBack }: DownloaderCard
 
               <button
                 onClick={handleCopy}
-                className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all border border-white/5 flex items-center justify-center group shrink-0"
+                className="h-12 w-full sm:w-auto px-6 rounded-2xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all border border-white/10 flex items-center justify-center gap-3 group shrink-0"
                 title="Copy with timestamps"
               >
-                {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 group-hover:scale-110 transition-transform" />}
+                {copied ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5 group-hover:scale-110 transition-transform" />}
+                <span className="text-[10px] font-black uppercase tracking-widest">{copied ? 'COPIED' : 'COPY'}</span>
               </button>
             </div>
 
             <div className="glass rounded-[2rem] p-8 text-[15px] text-gray-400 leading-relaxed max-h-[500px] overflow-y-auto custom-scrollbar border border-white/5 bg-black/30">
               {info.transcript_data && info.transcript_data.length > 0 ? (
                 viewMode === 'subtitles' ? (
-                  <div className="space-y-8">
+                  <div className="space-y-6 md:space-y-8">
                     {info.transcript_data.map((item, idx) => (
-                      <div key={idx} className="space-y-2">
-                        <span className="text-blue-500 font-black text-sm tracking-widest">{formatTime(item.time)}</span>
-                        <p className="text-gray-300 font-medium">{item.text}</p>
+                      <div key={idx} className="space-y-2 border-l-2 border-white/5 pl-6 hover:border-brand-orange/30 transition-colors">
+                        <span className="text-brand-orange font-black text-[10px] md:text-xs tracking-widest bg-brand-orange/10 px-2 py-0.5 rounded">{formatTime(item.time)}</span>
+                        <p className="text-gray-300 font-medium text-sm md:text-base leading-relaxed">{item.text}</p>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div className="space-y-6">
-                    <p className="text-gray-300 font-medium leading-loose">
+                    <p className="text-gray-300 font-medium text-sm md:text-base leading-loose">
                       {info.transcript_data.map(item => item.text).join(' ')}
                     </p>
                   </div>
                 )
               ) : info.description ? (
-                <p className="whitespace-pre-wrap text-sm">{info.description}</p>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 text-brand-orange text-[10px] font-black uppercase tracking-widest mb-4">
+                    <FileText className="w-3 h-3" /> Description
+                  </div>
+                  <p className="whitespace-pre-wrap text-xs md:text-sm text-gray-400 leading-relaxed">{info.description}</p>
+                </div>
               ) : (
-                <p className="italic opacity-50 text-sm">Content currently unavailable.</p>
+                <div className="flex flex-col items-center justify-center py-20 text-center opacity-40">
+                  <FileText className="w-12 h-12 mb-4" />
+                  <p className="text-sm font-bold">No transcript or description found.</p>
+                </div>
               )}
             </div>
           </div>
