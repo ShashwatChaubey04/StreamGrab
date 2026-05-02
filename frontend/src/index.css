@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-orange: #ff7a00;
+  --color-brand-purple: #9b4dff;
+  --color-brand-dark: #0a0a0b;
+  --color-brand-darker: #050505;
+  --color-brand-surface: rgba(255, 255, 255, 0.03);
+  --color-brand-border: rgba(255, 255, 255, 0.08);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--color-brand-darker);
+    color: white;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(255, 122, 0, 0.08), transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(155, 77, 255, 0.08), transparent 25%);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--color-brand-surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--color-brand-border);
+  }
+  
+  .glass-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .text-gradient {
+    background: linear-gradient(to right, var(--color-brand-orange), var(--color-brand-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .bg-gradient-brand {
+    background: linear-gradient(135deg, var(--color-brand-orange) 0%, var(--color-brand-purple) 100%);
+  }
+
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+}
+
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
