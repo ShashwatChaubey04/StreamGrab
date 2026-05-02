@@ -24,18 +24,25 @@ class Downloader {
 
       ytDlp.on('close', async (code) => {
         if (code !== 0) {
-          return reject(new Error(`yt-dlp exited with code ${code}: ${stderr}`));
+          console.error(`yt-dlp error (code ${code}):`, stderr);
+          return reject(new Error(`yt-dlp failed: ${stderr.split('\n')[0] || 'Unknown error'}`));
         }
         
         try {
+          if (!stdout.trim()) {
+            return reject(new Error('yt-dlp returned empty output'));
+          }
           const lines = stdout.trim().split('\n');
           let parsed;
-          if (lines.length > 1) {
+          try {
             parsed = JSON.parse(lines[0]);
-            parsed.is_playlist = true;
-            parsed.playlist_count = lines.length;
-          } else {
-            parsed = JSON.parse(stdout);
+            if (lines.length > 1) {
+              parsed.is_playlist = true;
+              parsed.playlist_count = lines.length;
+            }
+          } catch (e) {
+            console.error('JSON Parse Error. Output was:', stdout);
+            return reject(new Error('Failed to parse video information from yt-dlp'));
           }
 
           // Try to get transcript structured data

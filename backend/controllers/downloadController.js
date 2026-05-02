@@ -20,6 +20,7 @@ exports.getInfo = async (req, res) => {
     const info = await downloader.getInfo(url);
     res.json(info);
   } catch (err) {
+    console.error('API Error:', err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -43,6 +44,7 @@ exports.startDownload = (req, res) => {
     downloader.startDownload(taskId, url, { preferredHeight, isPlaylist, mode, audioBitrate }, taskDir);
     res.json({ taskId });
   } catch (err) {
+    console.error('API Error:', err);
     res.status(500).json({ error: err.message });
   }
 };
