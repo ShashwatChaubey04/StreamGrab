@@ -8,7 +8,7 @@ class Downloader {
   }
 
   async getInfo(url) {
-    const cookiesPath = path.join(process.cwd(), 'cookies.txt');
+    const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
     return new Promise((resolve, reject) => {
       const args = [
         '--dump-json',
@@ -84,6 +84,13 @@ class Downloader {
             }
           }
           parsed.transcript_data = transcriptData;
+          
+          // Clean up heavy data to reduce payload
+          delete parsed.automatic_captions;
+          delete parsed.subtitles;
+          delete parsed.requested_formats;
+          delete parsed.formats;
+          
           resolve(parsed);
         } catch (e) {
           reject(new Error(`Failed to parse info JSON: ${e.message}`));
@@ -130,7 +137,7 @@ class Downloader {
       ];
     }
 
-    const cookiesPath = path.join(process.cwd(), 'cookies.txt');
+    const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
     if (fs.existsSync(cookiesPath)) {
       args.push('--cookies', cookiesPath);
     }

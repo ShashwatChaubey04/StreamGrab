@@ -57,11 +57,22 @@ function App() {
     setStatus('fetching');
     setErrorMsg('');
     try {
-      const res = await fetch(`${API_BASE}/api/info?url=${encodeURIComponent(url)}`);
+      const encodedUrl = encodeURIComponent(url);
+      const apiUrl = `${API_BASE}/api/info?url=${encodedUrl}`;
+      console.log('Fetching from:', apiUrl); // Debug log
+      
+      const res = await fetch(apiUrl);
+      console.log('Response status:', res.status); // Debug log
+      
       if (!res.ok) {
-        throw new Error('Failed to fetch video information.');
+        const errorText = await res.text();
+        console.error('API Error Response:', errorText); // Debug log
+        throw new Error(`Server error: ${res.status} - ${errorText.substring(0, 100)}`);
       }
+      
       const data = await res.json();
+      console.log('Parsed data:', data); // Debug log
+      
       setVideoInfo({
         id: data.id,
         title: data.title || data.playlist_title,
@@ -77,6 +88,7 @@ function App() {
       });
       setStatus('ready');
     } catch (err: any) {
+      console.error('Full error:', err); // Debug log
       setErrorMsg(err.message || 'An error occurred while fetching.');
       setStatus('error');
     }
